@@ -3,6 +3,8 @@
 静的なブラウザゲームを作りたいが、
 しかしながら、typescriptは使いたい
 
+https://aseruneko.github.io/aseru-game
+
 # initially cloned from
 
 https://github.com/tadatakuho/static-site-template

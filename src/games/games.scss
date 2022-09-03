@@ -1,0 +1,16 @@
+
+body {
+    background-color: #EEEEEE;
+    color: #333333;
+    * {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+    > * {
+        margin-bottom: 16px;
+    }
+}
+canvas {
+    background-color: #9FC9F3;
+}

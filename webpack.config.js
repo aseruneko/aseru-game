@@ -15,7 +15,7 @@ const webpackConfig = {
   output: {
     filename: "js/[name].js",
     path: path.resolve(__dirname, "dist"),
-    assetModuleFilename: "images/[hash][ext][query]",
+    assetModuleFilename: "[path][name][ext][query]",
   },
   // 開発環境設定
   devServer: {

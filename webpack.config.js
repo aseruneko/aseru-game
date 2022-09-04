@@ -38,6 +38,10 @@ const webpackConfig = {
       {
         test: /\.tsx?$/,
         use: "ts-loader",
+        resolve: {
+          extensions: ['.ts'],
+          modules: [path.resolve(__dirname, 'src'), 'node_modules']
+        },
         exclude: /node_modules/,
       },
       {
@@ -54,14 +58,16 @@ const webpackConfig = {
 
 // 複数ページを書き出すための設定
 Object.keys(webpackConfig.entry).forEach((key) => {
-  webpackConfig.plugins.push(
-    new HtmlWebpackPlugin({
-      template: `./src/${key}.html`, // 読み込み元のhtmlパス
-      filename: `./${key}.html`, // 出力するhtmlパス
-      inject: true,
-      chunks: [key],
-    })
-  );
+  if(!key.match(/src/)){
+      webpackConfig.plugins.push(
+      new HtmlWebpackPlugin({
+        template: `./src/${key}.html`, // 読み込み元のhtmlパス
+        filename: `./${key}.html`, // 出力するhtmlパス
+        inject: true,
+        chunks: [key],
+      })
+    );
+  }
 });
 
 module.exports = webpackConfig;

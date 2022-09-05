@@ -1,21 +1,32 @@
 import * as PIXI from "pixi.js";
 import { Scene } from "./scene";
 import { TextStyleObject, WINDOW_HEIGHT, WINDOW_WIDTH, ColorObject } from "../constants/constants"
-import { MaskedContainerButtonObject } from "../objects/button-object";
+import { EdgedButtonObject, MaskedContainerButtonObject } from "../objects/button-object";
+import { TitleScene } from "./title-scene";
+import { GameScene } from "./game-scene";
 
 export class WorldScene extends Scene {
-    titleString: PIXI.Text;
-    stage: PIXI.Container;
+    parent: PIXI.Container;
     constructor(stage: PIXI.Container) {
         super();
         this.sceneId = 'world';
-        this.stage = stage;
         this.container = new PIXI.Container();
-        this.titleString = new PIXI.Text('WORLD SELECT', TextStyleObject.H2.style);
-        this.titleString.x = 24;
-        this.titleString.y = 24;
+        this.parent = stage;
+        const titleString = new PIXI.Text('WORLD SELECT', TextStyleObject.H2.style);
+        titleString.x = 24;
+        titleString.y = 24;
+        const backButton = EdgedButtonObject(100, 50, ColorObject.BLUE_1, '戻る', 16, ColorObject.WHITE_1, 8, ColorObject.BLUE_2, 8);
+        backButton.x = 350;
+        backButton.y = 526;
+        backButton.interactive = true;
+        backButton.on('mousedown', () => {
+            this.container.visible = false;
+            stage.removeChild;
+            stage.addChild(new TitleScene(stage).container);
+        })
         this.addStageSelects();
-        this.container.addChild(this.titleString);
+        this.container.addChild(titleString);
+        this.container.addChild(backButton);
     }
     private addStageSelects() {
         const STAGE_THUMBNAIL_SIZE = 150;
@@ -39,7 +50,9 @@ export class WorldScene extends Scene {
         this.container.addChild(stageLabel);
     }
     private selectStage(stageId: string) {
-        console.log(stageId);
+        this.container.visible = false;
+        this.parent.removeChild;
+        this.parent.addChild(new GameScene(this.parent, stageId).container);
     }
 }
 
